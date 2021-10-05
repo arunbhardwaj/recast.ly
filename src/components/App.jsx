@@ -47,10 +47,15 @@ class App extends React.Component {
 
   searchForNewVideo(string) {
     this.props.searchYoutube(string, (data) => {
-      this.setState({
-        currentVideo: data[0],
-        videoList: data,
-      });
+      // handle blank data
+      if (data.length !== 0) {
+        this.setState({
+          currentVideo: data[0],
+          videoList: data,
+        });
+      } else {
+        console.error('Blank request received. Try searching for something else.');
+      }
     });
   }
 
