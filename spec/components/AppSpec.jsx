@@ -48,11 +48,10 @@ describe('App', function() {
     });
   });
 
-  xdescribe('when rendering live data from YouTube', function() {
+  describe('when rendering live data from YouTube', function() {
+
     beforeEach(function() {
-      app = renderIntoDocument(
-        <App />
-      );
+      app = renderIntoDocument(<App />);
     });
 
     it('should load live data when app is initialized', function() {

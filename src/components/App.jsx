@@ -1,5 +1,6 @@
 import VideoList from './VideoList.js';
 import VideoPlayer from './VideoPlayer.js';
+import Search from './Search.js';
 import exampleVideoData from '../data/exampleVideoData.js';
 
 class App extends React.Component {
@@ -7,15 +8,50 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      currentVideo: exampleVideoData[0],
-      videoList: exampleVideoData,
+      currentVideo: {
+        'id': {
+          'kind': 'youtube#video',
+          'videoId': ''
+        },
+        'snippet': {
+          'title': '',
+          'description': '',
+          'thumbnails': {
+            'default': {
+              'url': 'https://i.ytimg.com/vi/dYh6R4Jhxoo/default.jpg',
+              'width': 120,
+              'height': 90
+            }
+          },
+        }
+      },
+      videoList: [],
     };
 
     this.chooseNewVideo = this.chooseNewVideo.bind(this);
+    this.searchForNewVideo = this.searchForNewVideo.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.searchYoutube('Cute cat video', (data) => {
+      this.setState({
+        currentVideo: data[Math.floor(Math.random() * data.length)],
+        videoList: data,
+      });
+    });
   }
 
   chooseNewVideo(video) {
     this.setState({ currentVideo: video });
+  }
+
+  searchForNewVideo(string) {
+    this.props.searchYoutube(string, (data) => {
+      this.setState({
+        currentVideo: data[0],
+        videoList: data,
+      });
+    });
   }
 
   render() {
@@ -23,7 +59,7 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><h5><em>search</em> view goes here</h5></div>
+            <div><h5><Search searchForVideo={this.searchForNewVideo}/></h5></div>
           </div>
         </nav>
         <div className="row">
@@ -31,7 +67,7 @@ class App extends React.Component {
             <div><h5><VideoPlayer video={this.state.currentVideo} parentState={this.state}/></h5></div>
           </div>
           <div className="col-md-5">
-            <VideoList videos={exampleVideoData} parentState={this.state} onVideoClick={this.chooseNewVideo}/>
+            <VideoList videos={this.state.videoList} parentState={this.state} onVideoClick={this.chooseNewVideo}/>
           </div>
         </div>
       </div>
