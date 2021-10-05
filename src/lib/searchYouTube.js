@@ -6,6 +6,7 @@ $.ajaxPrefilter(function (settings, _, jqXHR) {
 
 var searchYouTube = (query, callback) => {
   // TODO
+
 };
 
 export default searchYouTube;
