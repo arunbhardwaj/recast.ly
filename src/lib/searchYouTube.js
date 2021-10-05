@@ -9,7 +9,7 @@ var searchYouTube = (query, callback) => {
     url: 'https://app-hrsei-api.herokuapp.com/api/recastly/videos',
     type: 'GET',
     data: {
-      // key: YOUTUBE_API_KEY,
+      key: YOUTUBE_API_KEY,
       q: query,
     },
     contentType: 'application/json',

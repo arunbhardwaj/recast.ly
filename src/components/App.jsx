@@ -11,7 +11,7 @@ class App extends React.Component {
       currentVideo: {
         'id': {
           'kind': 'youtube#video',
-          'videoId': ''
+          'videoId': 'abc'
         },
         'snippet': {
           'title': '',
@@ -53,6 +53,8 @@ class App extends React.Component {
       });
     });
   }
+
+  // https://stackoverflow.com/questions/23493726/how-to-properly-debounce-ajax-requests
 
   render() {
     return (

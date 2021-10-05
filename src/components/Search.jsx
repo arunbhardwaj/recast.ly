@@ -1,25 +1,26 @@
-const Search = (props) => {
-  // this.handleSubmit()?
+class Search extends React.Component {
+  constructor(props) {
+    super(props);
 
-  const handleClick = function(event) {
-    console.log('Submitted');
-  };
+    this.handleChange = this.handleChange.bind(this);
+    this.debouncedSearch = _.debounce(this.props.searchForVideo, 1000);
+  }
 
-  const handleChange = function(event) {
-    console.log(event.target);
-    // chooseNewVideo(video)
-    // this.props.searchForVideo()
-  };
+  handleChange(event) {
+    this.debouncedSearch(event.target.value);
+  }
 
-  return (
-    <div className="search-bar form-inline">
-      <input className="form-control" type="text" placeholder="Search for something..."/>
-      <button onClick={()=>{ return console.log('hi')}} className="btn hidden-sm-down">
-        <span className="glyphicon glyphicon-search"></span>
-      </button>
-    </div>
-  );
-};
+  render() {
+    return (
+      <div className="search-bar form-inline">
+        <input onChange={this.handleChange} className="form-control" type="text" placeholder="Search for something..."/>
+        <button className="btn hidden-sm-down">
+          <span className="glyphicon glyphicon-search"></span>
+        </button>
+      </div>
+    );
+  }
+}
 
 // /**
 //        *
